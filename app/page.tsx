@@ -59,7 +59,7 @@ export default function Home() {
             <>
               Build your stack.
               <br />
-              <span className="text-[#FA5D19]">Get an AI verdict.</span>
+              <span className="text-[#FA5D19]">Get an AI Analysis.</span>
             </>
           )}
         </h1>

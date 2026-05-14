@@ -19,6 +19,7 @@ export default function StackBuilder({ onAnalyze }: StackBuilderProps) {
   const hasMinimum = useStackStore((s) => s.hasMinimum());
 
   const isLoading = status === "loading";
+  const isAnalyzing = status !== "idle";
 
   /** Build a human-readable label for each selected tech */
   const resolveName = (category: string, techId: string) =>
@@ -63,9 +64,10 @@ export default function StackBuilder({ onAnalyze }: StackBuilderProps) {
       )}
 
       {/* Category Panels */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        {CATEGORY_ORDER.map((cat) => (
-          <CategoryPanel key={cat} category={cat} />
+      <div className={`grid gap-4 transition-all duration-700
+                       ${isAnalyzing ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+        {CATEGORY_ORDER.map((cat, i) => (
+          <CategoryPanel key={cat} category={cat} index={i} />
         ))}
       </div>
 
@@ -73,11 +75,15 @@ export default function StackBuilder({ onAnalyze }: StackBuilderProps) {
       <button
         onClick={onAnalyze}
         disabled={!hasMinimum || isLoading}
-        className="group relative mt-2 w-full overflow-hidden rounded-xl border border-[#FA5D19]/30 
-                   bg-[#FA5D19]/10 py-4 font-semibold text-[#FA5D19] transition-all
-                   hover:border-[#FA5D19]/60 hover:bg-[#FA5D19]/15
+        className={`group relative mt-2 w-full overflow-hidden rounded-xl border py-4 font-semibold transition-all duration-500
+                   ${
+                     hasMinimum && !isLoading
+                       ? "border-[#FA5D19]/40 bg-[#FA5D19]/10 text-[#FA5D19] animate-pulse-glow hover:border-[#FA5D19]/60 hover:bg-[#FA5D19]/15"
+                       : "border-[#FA5D19]/30 bg-[#FA5D19]/10 text-[#FA5D19]"
+                   }
                    disabled:border-white/[0.06] disabled:bg-white/[0.02] disabled:text-zinc-600
-                   disabled:cursor-not-allowed"
+                   disabled:cursor-not-allowed disabled:animate-none
+                   hover:scale-[1.01] active:scale-[0.99]`}
       >
         {/* subtle glow */}
         <div className="pointer-events-none absolute inset-0 -z-10 rounded-xl bg-[#FA5D19]/5 blur-xl transition-opacity group-hover:opacity-100 group-disabled:opacity-0" />

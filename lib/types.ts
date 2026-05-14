@@ -49,12 +49,23 @@ export interface PairingAnalysis {
   cons: string[];
 }
 
+export type CostTier = "free" | "low" | "medium" | "high" | "enterprise";
+
+export interface CostBreakdown {
+  technology: string;
+  category: TechCategory;
+  tier: CostTier;
+  estimatedMonthly: string; // e.g. "$0" or "$25–$100"
+}
+
 export interface AnalysisResult {
   overallCompatibility: number;
   pairings: PairingAnalysis[];
   verdict: string;
   summary: string;
   recommendations: string[];
+  costBreakdown: CostBreakdown[];
+  estimatedTotalMonthly: string; // e.g. "$120–$380"
 }
 
 export type AnalysisStatus = "idle" | "loading" | "success" | "error";

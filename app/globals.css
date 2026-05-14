@@ -8,38 +8,79 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Smooth scroll for a polished feel */
 html {
   scroll-behavior: smooth;
 }
 
-/* Subtle scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.14); }
 
-/* Utility: animate-in keyframes (simple fade+slide) */
+/* ── Entrance: fade + slide up ── */
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.animate-in.fade-in.slide-in-from-bottom-4 {
+/* ── Entrance: fade + scale up (cards) ── */
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Slide in from left (builder shift) ── */
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Slide in from right (report panel) ── */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Chip pop on select ── */
+@keyframes chip-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* ── Pulse glow for CTA button ── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(250, 93, 25, 0.15); }
+  50%      { box-shadow: 0 0 24px rgba(250, 93, 25, 0.35); }
+}
+
+/* ── Subtle shimmer for loading ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Utility classes ── */
+.animate-fade-in-up {
   animation: fade-in-up 0.5s ease-out both;
+}
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.4s ease-out both;
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out both;
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out both;
+}
+.animate-chip-pop {
+  animation: chip-pop 0.3s ease-out;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(250,93,25,0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
 }

@@ -23,7 +23,16 @@ Your task: perform a rigorous feasibility analysis and return **only valid JSON*
   ],
   "verdict": "<one of: PRODUCTION_READY | VIABLE_WITH_CAVEATS | NOT_RECOMMENDED>",
   "summary": "<2-3 sentence executive summary>",
-  "recommendations": ["<actionable recommendation>"]
+  "recommendations": ["<actionable recommendation>"],
+  "costBreakdown": [
+    {
+      "technology": "Next.js",
+      "category": "Frontend Frameworks",
+      "tier": "<free | low | medium | high | enterprise>",
+      "estimatedMonthly": "$0"
+    }
+  ],
+  "estimatedTotalMonthly": "$120–$380"
 }
 
 Rules:
@@ -35,6 +44,8 @@ Rules:
   • NOT_RECOMMENDED — fundamental conflicts or missing pieces.
 - summary: crisp, executive-level.
 - recommendations: 2-4 concrete, actionable improvements.
+- costBreakdown: estimate the monthly cost for each selected technology at production scale (startup/small team). Use tiers: free ($0), low ($1–$100/mo), medium ($100–$500/mo), high ($500–$2,000/mo), enterprise ($2,000+/mo). Be realistic — factor in free tiers, team plans, and hidden costs (e.g. compute, bandwidth, seats).
+- estimatedTotalMonthly: a realistic range string like "$85–$320" summing all tech costs.
 
 Be honest and critical. Flag version conflicts, architectural mismatches, security concerns, and scaling bottlenecks. If the stack is solid, say so confidently.`;
 }

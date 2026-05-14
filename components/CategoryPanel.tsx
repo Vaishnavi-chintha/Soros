@@ -42,9 +42,10 @@ const isRequired = (cat: TechCategory) => REQUIRED_CATEGORIES.includes(cat);
 
 interface CategoryPanelProps {
   category: TechCategory;
+  index?: number;
 }
 
-export default function CategoryPanel({ category }: CategoryPanelProps) {
+export default function CategoryPanel({ category, index = 0 }: CategoryPanelProps) {
   const selected = useStackStore((s) => s.selected);
   const select = useStackStore((s) => s.select);
   const remove = useStackStore((s) => s.remove);
@@ -52,7 +53,12 @@ export default function CategoryPanel({ category }: CategoryPanelProps) {
   const selectedId = selected[category];
 
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 backdrop-blur-sm">
+    <div
+      className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 backdrop-blur-sm
+                 transition-all duration-300 hover:border-white/[0.10] hover:bg-white/[0.03]
+                 hover:shadow-[0_4px_24px_rgba(0,0,0,0.3)] animate-fade-in-scale"
+      style={{ animationDelay: `${index * 50}ms` }}
+    >
       {/* Header */}
       <div className="mb-3 flex items-center gap-2">
         <span className="text-[#FA5D19]">{ICONS[category]}</span>

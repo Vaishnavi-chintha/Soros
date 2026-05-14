@@ -1,5 +1,7 @@
 import { Technology, TechCategory } from "./types";
 
+import { CostTier } from "./types";
+
 export const TECH_CATALOG: Record<TechCategory, Technology[]> = {
   "Frontend Frameworks": [
     { id: "react", name: "React", category: "Frontend Frameworks" },
@@ -324,4 +326,279 @@ export const CATEGORY_LABELS: Record<TechCategory, string> = {
   "Caching & Performance": "Caching & Performance",
   "Mobile & Cross-Platform Development": "Mobile & Cross-Platform Development",
   "Machine Learning & AI Integration": "Machine Learning & AI Integration",
+};
+
+/**
+ * Estimated monthly cost per technology at production scale (startup team).
+ * Ranges account for free tiers, pay-as-you-go, and team plans.
+ */
+export const COST_ESTIMATES: Record<string, { tier: CostTier; range: string }> = {
+  // Frontend Frameworks
+  react: { tier: "free", range: "$0" },
+  nextjs: { tier: "free", range: "$0" },
+  vue: { tier: "free", range: "$0" },
+  nuxt: { tier: "free", range: "$0" },
+  svelte: { tier: "free", range: "$0" },
+  angular: { tier: "free", range: "$0" },
+  remix: { tier: "free", range: "$0" },
+  astro: { tier: "free", range: "$0" },
+  solid: { tier: "free", range: "$0" },
+  qwik: { tier: "free", range: "$0" },
+
+  // Backend & Runtimes
+  node: { tier: "free", range: "$0" },
+  bun: { tier: "free", range: "$0" },
+  deno: { tier: "free", range: "$0" },
+  express: { tier: "free", range: "$0" },
+  fastify: { tier: "free", range: "$0" },
+  hono: { tier: "free", range: "$0" },
+  django: { tier: "free", range: "$0" },
+  fastapi: { tier: "free", range: "$0" },
+  "go-fiber": { tier: "free", range: "$0" },
+  "rust-axum": { tier: "free", range: "$0" },
+  laravel: { tier: "free", range: "$0" },
+  rails: { tier: "free", range: "$0" },
+
+  // Databases
+  postgres: { tier: "low", range: "$0–$50" },
+  mysql: { tier: "low", range: "$0–$50" },
+  mongodb: { tier: "medium", range: "$0–$120" },
+  sqlite: { tier: "free", range: "$0" },
+  supabase: { tier: "low", range: "$0–$75" },
+  planetscale: { tier: "medium", range: "$29–$299" },
+  neon: { tier: "low", range: "$0–$80" },
+  redis: { tier: "low", range: "$0–$60" },
+  cassandra: { tier: "high", range: "$100–$500" },
+  dynamodb: { tier: "medium", range: "$0–$200" },
+  couchdb: { tier: "low", range: "$0–$50" },
+  clickhouse: { tier: "high", range: "$80–$600" },
+
+  // Styling
+  tailwind: { tier: "free", range: "$0" },
+  "css-modules": { tier: "free", range: "$0" },
+  "styled-components": { tier: "free", range: "$0" },
+  shadcn: { tier: "free", range: "$0" },
+  mantine: { tier: "free", range: "$0" },
+  chakra: { tier: "free", range: "$0" },
+  radix: { tier: "free", range: "$0" },
+  daisyui: { tier: "free", range: "$0" },
+  mui: { tier: "free", range: "$0" },
+  antd: { tier: "free", range: "$0" },
+
+  // Auth
+  nextauth: { tier: "free", range: "$0" },
+  clerk: { tier: "low", range: "$0–$99" },
+  lucia: { tier: "free", range: "$0" },
+  "supabase-auth": { tier: "free", range: "$0" },
+  "firebase-auth": { tier: "free", range: "$0" },
+  auth0: { tier: "medium", range: "$0–$240" },
+  kinde: { tier: "low", range: "$0–$90" },
+  "better-auth": { tier: "free", range: "$0" },
+  passport: { tier: "free", range: "$0" },
+  keycloak: { tier: "free", range: "$0" },
+
+  // State Management
+  zustand: { tier: "free", range: "$0" },
+  redux: { tier: "free", range: "$0" },
+  jotai: { tier: "free", range: "$0" },
+  recoil: { tier: "free", range: "$0" },
+  mobx: { tier: "free", range: "$0" },
+  pinia: { tier: "free", range: "$0" },
+  xstate: { tier: "free", range: "$0" },
+  "tanstack-query": { tier: "free", range: "$0" },
+  swr: { tier: "free", range: "$0" },
+  valtio: { tier: "free", range: "$0" },
+
+  // API
+  rest: { tier: "free", range: "$0" },
+  graphql: { tier: "free", range: "$0" },
+  trpc: { tier: "free", range: "$0" },
+  grpc: { tier: "free", range: "$0" },
+  websocket: { tier: "free", range: "$0" },
+  sse: { tier: "free", range: "$0" },
+  openapi: { tier: "free", range: "$0" },
+  "graphql-yoga": { tier: "free", range: "$0" },
+  apollo: { tier: "low", range: "$0–$99" },
+  hasura: { tier: "medium", range: "$0–$150" },
+
+  // ORMs
+  prisma: { tier: "free", range: "$0" },
+  drizzle: { tier: "free", range: "$0" },
+  typeorm: { tier: "free", range: "$0" },
+  sequelize: { tier: "free", range: "$0" },
+  knex: { tier: "free", range: "$0" },
+  sqlalchemy: { tier: "free", range: "$0" },
+  mongoose: { tier: "free", range: "$0" },
+  pg: { tier: "free", range: "$0" },
+  "elysia-eden": { tier: "free", range: "$0" },
+
+  // Infrastructure
+  vercel: { tier: "low", range: "$0–$55" },
+  netlify: { tier: "low", range: "$0–$45" },
+  aws: { tier: "high", range: "$30–$500" },
+  cloudflare: { tier: "low", range: "$0–$50" },
+  flyio: { tier: "low", range: "$0–$60" },
+  railway: { tier: "low", range: "$5–$80" },
+  render: { tier: "low", range: "$0–$85" },
+  digitalocean: { tier: "medium", range: "$6–$200" },
+  kubernetes: { tier: "high", range: "$100–$800" },
+  docker: { tier: "free", range: "$0" },
+  heroku: { tier: "medium", range: "$7–$250" },
+
+  // Testing
+  jest: { tier: "free", range: "$0" },
+  vitest: { tier: "free", range: "$0" },
+  playwright: { tier: "free", range: "$0" },
+  cypress: { tier: "low", range: "$0–$75" },
+  "testing-library": { tier: "free", range: "$0" },
+  mocha: { tier: "free", range: "$0" },
+  storybook: { tier: "free", range: "$0" },
+  chromatic: { tier: "low", range: "$0–$149" },
+  eslint: { tier: "free", range: "$0" },
+  prettier: { tier: "free", range: "$0" },
+
+  // Package Managers
+  npm: { tier: "free", range: "$0" },
+  pnpm: { tier: "free", range: "$0" },
+  yarn: { tier: "free", range: "$0" },
+  "bun-pm": { tier: "free", range: "$0" },
+  vite: { tier: "free", range: "$0" },
+  turbopack: { tier: "free", range: "$0" },
+  webpack: { tier: "free", range: "$0" },
+  esbuild: { tier: "free", range: "$0" },
+  rollup: { tier: "free", range: "$0" },
+  turbo: { tier: "free", range: "$0" },
+
+  // CI/CD
+  "github-actions": { tier: "low", range: "$0–$40" },
+  "gitlab-ci": { tier: "low", range: "$0–$40" },
+  circleci: { tier: "medium", range: "$0–$120" },
+  jenkins: { tier: "medium", range: "$0–$150" },
+  argocd: { tier: "free", range: "$0" },
+  terraform: { tier: "low", range: "$0–$80" },
+  ansible: { tier: "free", range: "$0" },
+  pulumi: { tier: "low", range: "$0–$60" },
+  sst: { tier: "free", range: "$0" },
+
+  // Storage & CDN
+  s3: { tier: "low", range: "$1–$50" },
+  "cloudflare-r2": { tier: "low", range: "$0–$20" },
+  cloudinary: { tier: "medium", range: "$0–$150" },
+  uploadthing: { tier: "low", range: "$0–$25" },
+  "vercel-blob": { tier: "low", range: "$0–$30" },
+  bunny: { tier: "low", range: "$1–$40" },
+  cloudfront: { tier: "low", range: "$0–$40" },
+  imgix: { tier: "medium", range: "$0–$100" },
+
+  // Monitoring
+  sentry: { tier: "low", range: "$0–$90" },
+  datadog: { tier: "high", range: "$0–$500" },
+  grafana: { tier: "medium", range: "$0–$150" },
+  prometheus: { tier: "free", range: "$0" },
+  axiom: { tier: "medium", range: "$0–$250" },
+  logtail: { tier: "low", range: "$0–$60" },
+  opentelemetry: { tier: "free", range: "$0" },
+  pino: { tier: "free", range: "$0" },
+  winston: { tier: "free", range: "$0" },
+
+  // Payments
+  stripe: { tier: "low", range: "$0 + 2.9% + $0.30/txn" },
+  lemonsqueezy: { tier: "low", range: "$0 + 5% + $0.50/txn" },
+  paddle: { tier: "low", range: "$0 + 5% + $0.50/txn" },
+  polar: { tier: "low", range: "$0 + 5%" },
+  revenuecat: { tier: "medium", range: "$0–$200" },
+  braintree: { tier: "low", range: "$0 + 2.59% + $0.49/txn" },
+  paypal: { tier: "free", range: "$0 + 2.9% + $0.30/txn" },
+  square: { tier: "free", range: "$0 + 2.6% + $0.10/txn" },
+
+  // Security
+  arcjet: { tier: "low", range: "$0–$40" },
+  "clerk-security": { tier: "low", range: "$0–$99" },
+  helmet: { tier: "free", range: "$0" },
+  "owasp-zap": { tier: "free", range: "$0" },
+  snyk: { tier: "medium", range: "$0–$200" },
+  dependabot: { tier: "free", range: "$0" },
+  "hashicorp-vault": { tier: "medium", range: "$0–$200" },
+  letsencrypt: { tier: "free", range: "$0" },
+
+  // Real-time
+  socketio: { tier: "free", range: "$0" },
+  ws: { tier: "free", range: "$0" },
+  pusher: { tier: "medium", range: "$0–$150" },
+  ably: { tier: "medium", range: "$0–$150" },
+  liveblocks: { tier: "medium", range: "$0–$199" },
+  partykit: { tier: "low", range: "$0–$49" },
+  webrtc: { tier: "free", range: "$0" },
+  "supabase-realtime": { tier: "free", range: "$0" },
+
+  // Headless CMS
+  strapi: { tier: "free", range: "$0" },
+  contentful: { tier: "medium", range: "$0–$489" },
+  sanity: { tier: "low", range: "$0–$99" },
+  payload: { tier: "free", range: "$0" },
+  keystone: { tier: "free", range: "$0" },
+  directus: { tier: "free", range: "$0" },
+  storyblok: { tier: "medium", range: "$0–$120" },
+  prismic: { tier: "low", range: "$0–$100" },
+
+  // Email
+  resend: { tier: "low", range: "$0–$35" },
+  sendgrid: { tier: "low", range: "$0–$90" },
+  mailgun: { tier: "low", range: "$0–$100" },
+  postmark: { tier: "low", range: "$0–$50" },
+  loops: { tier: "low", range: "$0–$50" },
+  "react-email": { tier: "free", range: "$0" },
+  twilio: { tier: "medium", range: "$0 + per SMS" },
+  novu: { tier: "low", range: "$0–$60" },
+
+  // Forms
+  "react-hook-form": { tier: "free", range: "$0" },
+  formik: { tier: "free", range: "$0" },
+  zod: { tier: "free", range: "$0" },
+  yup: { tier: "free", range: "$0" },
+  valibot: { tier: "free", range: "$0" },
+  conform: { tier: "free", range: "$0" },
+  "tanstack-form": { tier: "free", range: "$0" },
+  typebox: { tier: "free", range: "$0" },
+
+  // Analytics
+  "vercel-analytics": { tier: "low", range: "$0–$16" },
+  "google-analytics": { tier: "free", range: "$0" },
+  plausible: { tier: "low", range: "$9–$30" },
+  posthog: { tier: "low", range: "$0–$250" },
+  mixpanel: { tier: "medium", range: "$0–$200" },
+  "next-seo": { tier: "free", range: "$0" },
+  unleash: { tier: "low", range: "$0–$80" },
+  segment: { tier: "medium", range: "$0–$250" },
+
+  // Caching
+  "redis-cache": { tier: "low", range: "$0–$60" },
+  "vercel-kv": { tier: "low", range: "$0–$30" },
+  upstash: { tier: "low", range: "$0–$60" },
+  memcached: { tier: "low", range: "$0–$40" },
+  "cloudflare-kv": { tier: "low", range: "$0–$15" },
+  "next-cache": { tier: "free", range: "$0" },
+  "swr-cache": { tier: "free", range: "$0" },
+  varnish: { tier: "free", range: "$0" },
+
+  // Mobile
+  "react-native": { tier: "free", range: "$0" },
+  expo: { tier: "medium", range: "$0–$200" },
+  flutter: { tier: "free", range: "$0" },
+  ionic: { tier: "medium", range: "$0–$100" },
+  tauri: { tier: "free", range: "$0" },
+  electron: { tier: "free", range: "$0" },
+  capacitor: { tier: "free", range: "$0" },
+  pwa: { tier: "free", range: "$0" },
+
+  // AI/ML
+  openai: { tier: "high", range: "$5–$1,000" },
+  anthropic: { tier: "high", range: "$5–$500" },
+  langchain: { tier: "free", range: "$0" },
+  "vercel-ai": { tier: "free", range: "$0" },
+  huggingface: { tier: "medium", range: "$0–$300" },
+  pinecone: { tier: "medium", range: "$0–$200" },
+  chroma: { tier: "free", range: "$0" },
+  ollama: { tier: "free", range: "$0" },
+  replicate: { tier: "medium", range: "$0–$200" },
 };

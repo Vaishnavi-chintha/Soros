@@ -8,6 +8,7 @@ import {
   XCircle,
   Lightbulb,
   ChevronRight,
+  DollarSign,
 } from "lucide-react";
 
 interface AnalysisReportProps {
@@ -20,9 +21,12 @@ export default function AnalysisReport({ result, status }: AnalysisReportProps) 
 
   if (status === "loading") {
     return (
-      <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-8 text-center">
-        <div className="mx-auto mb-4 h-12 w-12 animate-pulse rounded-full bg-[#FA5D19]/10" />
-        <p className="text-sm text-zinc-500">
+      <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-8 text-center animate-shimmer">
+        <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-[#FA5D19]/10 
+                        flex items-center justify-center">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FA5D19]/30 border-t-[#FA5D19]" />
+        </div>
+        <p className="text-sm text-zinc-500 animate-pulse">
           Crunching compatibility data…
         </p>
       </div>
@@ -78,7 +82,7 @@ export default function AnalysisReport({ result, status }: AnalysisReportProps) 
         : "text-red-400";
 
   return (
-    <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="flex flex-col gap-6 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
       {/* Score + Verdict Header */}
       <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6">
         <div className="flex items-center justify-between">
@@ -167,6 +171,85 @@ export default function AnalysisReport({ result, status }: AnalysisReportProps) 
           })}
         </div>
       </div>
+
+      {/* Cost Breakdown */}
+      {result.costBreakdown && result.costBreakdown.length > 0 && (
+        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-zinc-300">
+              <DollarSign size={16} className="text-[#FA5D19]" />
+              Cost Analysis
+            </h3>
+            <span className="rounded-full border border-[#FA5D19]/30 bg-[#FA5D19]/10 px-3 py-1 text-xs font-semibold text-[#FA5D19]">
+              {result.estimatedTotalMonthly}/mo
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            {result.costBreakdown.map((item, i) => {
+              const tierConfig = {
+                free: { bar: "bg-emerald-500/60", text: "text-emerald-400", label: "Free" },
+                low: { bar: "bg-sky-500/60", text: "text-sky-400", label: "Low" },
+                medium: { bar: "bg-amber-500/60", text: "text-amber-400", label: "Medium" },
+                high: { bar: "bg-orange-500/60", text: "text-orange-400", label: "High" },
+                enterprise: { bar: "bg-red-500/60", text: "text-red-400", label: "Enterprise" },
+              }[item.tier] ?? { bar: "bg-zinc-500/60", text: "text-zinc-400", label: item.tier };
+
+              const tierWidth = {
+                free: "w-[8%]", low: "w-[25%]", medium: "w-[50%]", high: "w-[75%]", enterprise: "w-[95%]",
+              }[item.tier] ?? "w-[30%]";
+
+              return (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/[0.02]"
+                >
+                  {/* Tech name */}
+                  <span className="w-44 shrink-0 truncate text-xs font-medium text-zinc-300">
+                    {item.technology}
+                  </span>
+
+                  {/* Tier bar */}
+                  <div className="flex flex-1 items-center gap-2">
+                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.04]">
+                      <div
+                        className={`h-full rounded-full ${tierConfig.bar} ${tierWidth} transition-all duration-700`}
+                      />
+                    </div>
+                    <span className={`w-16 text-right text-[10px] font-medium ${tierConfig.text}`}>
+                      {tierConfig.label}
+                    </span>
+                  </div>
+
+                  {/* Price */}
+                  <span className="w-28 text-right text-xs tabular-nums text-zinc-500">
+                    {item.estimatedMonthly}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Legend */}
+          <div className="mt-4 flex flex-wrap gap-3 border-t border-white/[0.04] pt-4">
+            {(["free", "low", "medium", "high", "enterprise"] as const).map((t) => {
+              const cfg = {
+                free: { bar: "bg-emerald-500/60", text: "text-emerald-400" },
+                low: { bar: "bg-sky-500/60", text: "text-sky-400" },
+                medium: { bar: "bg-amber-500/60", text: "text-amber-400" },
+                high: { bar: "bg-orange-500/60", text: "text-orange-400" },
+                enterprise: { bar: "bg-red-500/60", text: "text-red-400" },
+              }[t];
+              return (
+                <span key={t} className={`flex items-center gap-1.5 text-[10px] ${cfg.text}`}>
+                  <span className={`inline-block h-2 w-2 rounded-full ${cfg.bar}`} />
+                  {t.charAt(0).toUpperCase() + t.slice(1)}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Recommendations */}
       {result.recommendations.length > 0 && (

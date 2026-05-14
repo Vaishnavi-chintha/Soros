@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildSystemPrompt } from "@/lib/system-prompt";
+import { COST_ESTIMATES, TECH_CATALOG } from "@/lib/tech-catalog";
+import { CostBreakdown } from "@/lib/types";
 
 /**
  * POST /api/analyze
@@ -97,6 +99,43 @@ function generateMockAnalysis(stack: Record<string, string>) {
         ? `Your stack of ${techs.join(", ")} works but has a few friction points to be aware of. With careful integration and version management, it can serve production traffic reliably.`
         : `Your stack of ${techs.join(", ")} has fundamental compatibility concerns that make it risky for production. Consider swapping one or more components.`;
 
+  // --- Cost Breakdown ---
+  const costBreakdown: CostBreakdown[] = [];
+  let totalLow = 0;
+  let totalHigh = 0;
+
+  for (const [category, techName] of entries) {
+    const techEntry = Object.values(TECH_CATALOG)
+      .flat()
+      .find((t) => t.name === techName && t.category === category);
+    const techId = techEntry?.id ?? techName.toLowerCase().replace(/\s+/g, "-");
+    const estimate = COST_ESTIMATES[techId] ?? { tier: "low" as const, range: "$0–$50" };
+
+    costBreakdown.push({
+      technology: techName,
+      category: category as CostBreakdown["category"],
+      tier: estimate.tier,
+      estimatedMonthly: estimate.range,
+    });
+
+    // Parse range for total
+    const nums = estimate.range.match(/\$?(\d+[\d,]*)/g);
+    if (nums && nums.length >= 1) {
+      const low = parseInt(nums[0].replace(/[$,]/g, ""), 10) || 0;
+      totalLow += low;
+      if (nums.length >= 2) {
+        totalHigh += parseInt(nums[1].replace(/[$,]/g, ""), 10) || low;
+      } else {
+        totalHigh += low;
+      }
+    }
+  }
+
+  const estimatedTotalMonthly =
+    totalLow === totalHigh
+      ? `$${totalLow}`
+      : `$${totalLow}–$${totalHigh}`;
+
   return {
     overallCompatibility: avgScore,
     pairings,
@@ -113,5 +152,7 @@ function generateMockAnalysis(stack: Record<string, string>) {
         ? "Consider replacing the weakest pairing for better synergy."
         : "Add monitoring (Sentry, Datadog) before going live.",
     ],
+    costBreakdown,
+    estimatedTotalMonthly,
   };
 }

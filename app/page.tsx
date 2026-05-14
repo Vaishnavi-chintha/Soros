@@ -52,7 +52,7 @@ export default function Home() {
         <h1 className="max-w-2xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
           Build your stack.
           <br />
-          <span className="text-[#FA5D19]">Get an AI verdict.</span>
+          <span className="text-[#FA5D19]">Get an AI Analysis.</span>
         </h1>
         <p className="max-w-lg text-sm leading-relaxed text-zinc-500">
           Select at minimum a frontend and a backend, optionally add more layers, then hit <strong>Analyze</strong>. You&apos;ll — compatibility scores, pairing
